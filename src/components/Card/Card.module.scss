@@ -1,0 +1,138 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.cardsContainer {
+  @include flex-column;
+  gap: $spacing-lg;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: $dark-color;
+  text-align: center;
+  margin-bottom: $spacing-lg;
+}
+
+.productsGrid {
+  @include grid-responsive(250px);
+  padding: $spacing-md;
+}
+
+.productCard {
+  @include card;
+  text-align: center;
+  border: 1px solid lighten($secondary-color, 30%);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.productImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: $border-radius-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.productName {
+  margin: $spacing-sm 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $dark-color;
+}
+
+.productDescription {
+  margin: $spacing-sm 0;
+  font-size: 0.875rem;
+  color: $secondary-color;
+  line-height: 1.4;
+}
+
+.productPrice {
+  margin: $spacing-sm 0;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+// Responsive adjustments
+@include respond-to(sm) {
+  .productsGrid {
+    padding: $spacing-sm;
+  }
+  
+  .productCard {
+    padding: $spacing-sm;
+  }
+}
+
+@include respond-to(md) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .productsGrid {
+    gap: $spacing-lg;
+  }
+}
+
+// Modal styles
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+
+  img {
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+  }
+
+  .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+
+  .buyBtn {
+    background: #ffcc00;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #ffb700;
+    }
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
