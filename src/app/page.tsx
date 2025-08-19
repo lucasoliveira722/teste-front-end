@@ -1,20 +1,23 @@
 'use client';
 
 import Cards from "@/components/Card/Card";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
+import Hero from "@/components/Hero/Hero";
+import Categories from "@/components/Categories/Categories";
+import RelatedProducts from "@/components/RelatedProducts/RelatedProducts";
+import Partners from "@/components/Partners/Partners";
+import Footer from "@/components/Footer/Footer";
 import { useEffect, useState } from "react";
 import { Product } from "@/interfaces/Product";
 import axios from "axios";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);
         setError(null);
 
         // Use the local API route instead of calling external API directly
@@ -23,21 +26,11 @@ export default function Home() {
       } catch (error) {
         console.error('Error fetching products:', error);
         setError('Failed to fetch products. Please try again later.');
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
-
-  if (loading) {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <div>Loading products...</div>
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -53,9 +46,17 @@ export default function Home() {
     );
   }
 
-  return (<div>
-    <Header />
-    <Cards products={products} />
-  </div>
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <Hero />
+      <Categories />
+      <RelatedProducts />
+      <Partners />
+      <main style={{ flex: 1 }}>
+        <Cards products={products} />
+      </main>
+      <Footer />
+    </div>
   );
 }
